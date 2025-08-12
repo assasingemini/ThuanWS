@@ -12,7 +12,7 @@ Configure Windows EC2 to receive and respond to HTTP requests from an Applicatio
 
 Navigate to EC2 Console → Target Groups → Create target group.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/1.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/1.png) 
 
 Target type: IP
 
@@ -24,27 +24,27 @@ Health check protocol: HTTP
 
 Health check path: /
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/2.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/2.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/3.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/3.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/4.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/4.png) 
 
 Click Next, select the Private IP of the Linux EC2 → Include as pending below → Create target group.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/5.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/5.png) 
 
 AWS will prompt you to register targets (register EC2s to TG).
 
 With Linux TG → select Private IP of Linux EC2 then click Include as pending below, then Create target group.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/24.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/24.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/25.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/25.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/26.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/26.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/27.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/27.png) 
 
 ## Windows Target Group (similar to Linux but with changes)
 
@@ -85,9 +85,9 @@ Với Windows TG → làm tương tự, chỉ khác Port là 8080 và Health che
 ## Tạo Application Load Balancer
 Vào EC2 Console → Load Balancers → Create Load Balancer → Application Load Balancer.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/11.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/11.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/12.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/12.png) 
 
 Name: app-alb.
 
@@ -103,17 +103,17 @@ Security group: Allow HTTP (80) from Anywhere.
 
 Listeners: HTTP on port 80, default forward to linux-tg.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/13.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/13.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/14.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/14.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/15.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/15.png) 
 
 Click Create load balancer.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/16.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/16.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/17.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/17.png) 
 
 ## Add Listener Rule
 
@@ -125,17 +125,17 @@ IF Path is /win/* → Forward to windows-tg
 
 Keep default rule forward to linux-tg
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/18.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/18.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/19.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/19.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/20.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/20.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/21.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/21.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/22.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/22.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/23.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/23.png) 
 
 ## Configuring IIS on Windows Instance
 

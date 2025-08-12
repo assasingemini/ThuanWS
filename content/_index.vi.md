@@ -21,7 +21,7 @@ Lab này giúp bạn làm quen và thực hành xây dựng quy trình DevOps đ
 - Amazon ECR (Elastic Container Registry) - Lưu trữ và quản lý Docker images 
 - Amazon ECS Fargate - Triển khai và chạy container serverless
 
-![cấu trúc](images/pic.png) 
+![cấu trúc](/ThuanWS/images/pic.png) 
 
 ### Nội dung
 1. [Tạo Git Hub repository](1-GitHub_repository)

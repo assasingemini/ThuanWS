@@ -11,25 +11,25 @@ Put the minimal cross-platform sample into the repo.
 ### Required files
 app.py (+ requirements.txt have Flask==3.0.3)
 
-![clone](images/2-Clonerepo&pushsource/apppyfile.png) 
+![clone](/ThuanWS/images/2-Clonerepo&pushsource/apppyfile.png) 
 
-![clone](images/2-Clonerepo&pushsource/requirementtxt.png) 
+![clone](/ThuanWS/images/2-Clonerepo&pushsource/requirementtxt.png) 
 
 main.ps1 
 
-![clone](images/2-Clonerepo&pushsource/mainps1.png) 
+![clone](/ThuanWS/images/2-Clonerepo&pushsource/mainps1.png) 
 
 Dockerfile.linux, Dockerfile.windows
 
-![clone](images/2-Clonerepo&pushsource/dockerfilelinux.png) 
+![clone](/ThuanWS/images/2-Clonerepo&pushsource/dockerfilelinux.png) 
 
-![clone](images/2-Clonerepo&pushsource/docketfilewindows.png) 
+![clone](/ThuanWS/images/2-Clonerepo&pushsource/docketfilewindows.png) 
 
 buildspec-linux.yml, buildspec-windows.yml
 
-![clone](images/2-Clonerepo&pushsource/buildspeclinux.png) 
+![clone](/ThuanWS/images/2-Clonerepo&pushsource/buildspeclinux.png) 
 
-![clone](images/2-Clonerepo&pushsource/buildspecwindows.png) 
+![clone](/ThuanWS/images/2-Clonerepo&pushsource/buildspecwindows.png) 
 
 ### Commands
 
@@ -37,6 +37,6 @@ git add -A
 git commit -m "Add Dockerfiles, buildspecs, Linux & Windows apps"
 git push -u origin main
 
-![clone](images/2-Clonerepo&pushsource/gitpush.png)
+![clone](/ThuanWS/images/2-Clonerepo&pushsource/gitpush.png)
 
-![clone](images/2-Clonerepo&pushsource/pushfinish.png)
+![clone](/ThuanWS/images/2-Clonerepo&pushsource/pushfinish.png)

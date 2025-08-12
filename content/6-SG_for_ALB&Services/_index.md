@@ -15,7 +15,7 @@ Outbound is set to Allow all by default.
 ## SG cho ALB (alb-sg)
 Go to EC2 → Security Groups → Create security group.
 
-![SG](images/6-SG_for_ALB&Services/2.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/2.png) 
 
 Security group name: alb-sg
 
@@ -33,7 +33,7 @@ Source: 0.0.0.0/0 (optionally ::/0 if using IPv6)
 
 Outbound rules: keep the default All traffic (0.0.0.0/0).
 
-![SG](images/6-SG_for_ALB&Services/3.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/3.png) 
 
 Then, click "Create security group".
 
@@ -58,17 +58,17 @@ Important: the source must be SG alb-sg, not 0.0.0.0/0.
 
 Outbound rules: keep default All traffic.
 
-![SG](images/6-SG_for_ALB&Services/4.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/4.png) 
 
 Tags → Add tag: Name = ecs-linux-sg. Then, click "Create security group".
 
-![SG](images/6-SG_for_ALB&Services/5.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/5.png) 
 
 ## SG cho service Windows (ecs-win-sg)
 Similar to make linux ecs-linux-sg, just some changes
 
-![SG](images/6-SG_for_ALB&Services/6.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/6.png) 
 
 Below is the result we get after creating the SecurityGroups
 
-![SG](images/6-SG_for_ALB&Services/7.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/7.png) 

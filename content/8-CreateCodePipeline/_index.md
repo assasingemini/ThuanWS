@@ -16,7 +16,7 @@ In Category, select Deployment.
 
 In Template, select Push to ECR.
 
-![pline](images/8-CreateCodePipeline/1.png) 
+![pline](/ThuanWS/images/8-CreateCodePipeline/1.png) 
 
 ## Select Source
 
@@ -32,7 +32,7 @@ Keep Output artifact format as CodePipeline default.
 
 Click Next.
 
-![pline](images/8-CreateCodePipeline/2.png) 
+![pline](/ThuanWS/images/8-CreateCodePipeline/2.png) 
 
 ## Template Configuration
 
@@ -48,7 +48,7 @@ RetentionPolicy: select Delete to delete the auxiliary resources when deleting t
 
 Click Create pipeline from template to finish.
 
-![pline](images/8-CreateCodePipeline/3.png) 
+![pline](/ThuanWS/images/8-CreateCodePipeline/3.png) 
 
 ## Results after creating Pipeline
 
@@ -64,7 +64,7 @@ If you don't want to build to waste resources, you can click Stop execution righ
 
 The image below shows just creating a pipeline for Linux
 
-![pline](images/8-CreateCodePipeline/4.png) 
+![pline](/ThuanWS/images/8-CreateCodePipeline/4.png) 
 
 To create a pipeline for Windows, do the same as the Linux pipeline but in Template Details (Step 3) set CodePipelineName to windows-pipeline, select:
 

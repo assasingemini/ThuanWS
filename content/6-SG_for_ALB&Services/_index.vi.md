@@ -15,7 +15,7 @@ Theo mặc định, Outbound được đặt thành Allow all.
 ## SG cho ALB (alb-sg)
 Vào EC2 → Security Groups → Create security group.
 
-![SG](images/6-SG_for_ALB&Services/2.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/2.png) 
 
 Security group name: alb-sg
 
@@ -33,7 +33,7 @@ Source: 0.0.0.0/0 (optionally ::/0 if using IPv6)
 
 Outbound rules: giữ nguyên mặc định All traffic (0.0.0.0/0).
 
-![SG](images/6-SG_for_ALB&Services/3.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/3.png) 
 
 Sau đó, nhấp vào "Create security group".
 
@@ -58,17 +58,17 @@ Quan trọng: nguồn phải là SG alb-sg, không phải 0.0.0.0/0.
 
 Outbound rules: giữ nguyên mặc định là All traffic.
 
-![SG](images/6-SG_for_ALB&Services/4.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/4.png) 
 
 Tags → Add tag: Name = ecs-linux-sg. Sau đó, bấm vào "Create security group".
 
-![SG](images/6-SG_for_ALB&Services/5.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/5.png) 
 
 ## SG cho dịch vụ Windows (ecs-win-sg)
 Tương tự như tạo ecs-linux-sg cho Linux, chỉ cần một số thay đổi
 
-![SG](images/6-SG_for_ALB&Services/6.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/6.png) 
 
 Dưới đây là kết quả chúng ta nhận được sau khi tạo SecurityGroups
 
-![SG](images/6-SG_for_ALB&Services/7.png) 
+![SG](/ThuanWS/images/6-SG_for_ALB&Services/7.png) 

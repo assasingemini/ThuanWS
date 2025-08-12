@@ -20,32 +20,32 @@ Chúng ta cũng sẽ làm tương tự khi tạo CodeBuild cho Linux
 
 Trước tiên, hãy vào CodeBuild, đặt tên là build-windows, cấu hình như hình dưới đây, những phần còn lại sẽ tương tự như cấu hình cho build-linux
 
-![windows](images/5-CreateCodeBuildforWindows/1.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/1.png) 
 
-![windows](images/5-CreateCodeBuildforWindows/2.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/2.png) 
 
-![windows](images/5-CreateCodeBuildforWindows/3.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/3.png) 
 
-![windows](images/5-CreateCodeBuildforWindows/4.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/4.png) 
 
-![windows](images/5-CreateCodeBuildforWindows/5.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/5.png) 
 
 Sau khi tạo dự án thành công, chúng ta sẽ cấp quyền ECR cho vai trò CodeBuild.
 
-![windows](images/5-CreateCodeBuildforWindows/6.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/6.png)
 
-![windows](images/5-CreateCodeBuildforWindows/7.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/7.png)
 
-![windows](images/5-CreateCodeBuildforWindows/8.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/8.png)
 
-![windows](images/5-CreateCodeBuildforWindows/9.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/9.png)
 
 Cuối cùng chúng ta sẽ quay lại CodeBuild để xây dựng dự án build-windows
 
-![windows](images/5-CreateCodeBuildforWindows/10.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/10.png)
 
-![windows](images/5-CreateCodeBuildforWindows/11.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/11.png)
 
 Sau khi xây dựng, hãy quay lại ecr. Nếu window-apps có thẻ hình ảnh với phần mở rộng "latest" thì đã thành công.
 
-![windows](images/5-CreateCodeBuildforWindows/12.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/12.png)

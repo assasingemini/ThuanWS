@@ -21,7 +21,7 @@ This lab helps you get familiar with and practice building a cross-platform DevO
 - Amazon ECR (Elastic Container Registry) - Store and manage Docker images
 - Amazon ECS Fargate - Serverless container deployment and running
 
-![cấu trúc](images/pic.png) 
+![cấu trúc](/ThuanWS/images/pic.png) 
 
 ### Content
 1. [Create GitHub repository](1-GitHub_repository/)

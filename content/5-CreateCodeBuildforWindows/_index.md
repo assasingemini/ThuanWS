@@ -20,32 +20,32 @@ We will also do almost the same with creating CodeBuild for Linux
 
 First go to CodeBuild, name it build-windows, configure as shown below, the rest will be similar to the configuration for build-linux
 
-![windows](images/5-CreateCodeBuildforWindows/1.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/1.png) 
 
-![windows](images/5-CreateCodeBuildforWindows/2.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/2.png) 
 
-![windows](images/5-CreateCodeBuildforWindows/3.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/3.png) 
 
-![windows](images/5-CreateCodeBuildforWindows/4.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/4.png) 
 
-![windows](images/5-CreateCodeBuildforWindows/5.png) 
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/5.png) 
 
 After successfully creating the project, we will grant ECR permissions to CodeBuild role.
 
-![windows](images/5-CreateCodeBuildforWindows/6.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/6.png)
 
-![windows](images/5-CreateCodeBuildforWindows/7.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/7.png)
 
-![windows](images/5-CreateCodeBuildforWindows/8.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/8.png)
 
-![windows](images/5-CreateCodeBuildforWindows/9.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/9.png)
 
 Finally we will go back to CodeBuild to build the build-windows project
 
-![windows](images/5-CreateCodeBuildforWindows/10.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/10.png)
 
-![windows](images/5-CreateCodeBuildforWindows/11.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/11.png)
 
 After building, go back to ECR. If window-apps has an image tag with the latest extension, it is successful.
 
-![windows](images/5-CreateCodeBuildforWindows/12.png)
+![windows](/ThuanWS/images/5-CreateCodeBuildforWindows/12.png)

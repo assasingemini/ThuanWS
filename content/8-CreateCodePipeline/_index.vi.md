@@ -16,7 +16,7 @@ Vào AWS Console → tìm CodePipeline → chọn Create pipeline.
 
 Trong phần Template, chọn Push to ECR.
 
-![pline](images/8-CreateCodePipeline/1.png) 
+![pline](/ThuanWS/images/8-CreateCodePipeline/1.png) 
 
 ## Chọn Nguồn
 
@@ -32,7 +32,7 @@ Giữ Output artifact format là CodePipeline default.
 
 Bấm Next.
 
-![pline](images/8-CreateCodePipeline/2.png) 
+![pline](/ThuanWS/images/8-CreateCodePipeline/2.png) 
 
 ## Cấu hình Template
 
@@ -48,7 +48,7 @@ RetentionPolicy: chọn Delete để xoá tài nguyên phụ trợ khi xoá stac
 
 Bấm Create pipeline from template để hoàn tất.
 
-![pline](images/8-CreateCodePipeline/3.png) 
+![pline](/ThuanWS/images/8-CreateCodePipeline/3.png) 
 
 ##  Kết quả sau khi tạo Pipeline
 
@@ -64,7 +64,7 @@ Nếu không muốn build tốn tài nguyên, có thể bấm Stop execution nga
 
 Hình dưới đây là chỉ mới tạo pipeline cho Linux
 
-![pline](images/8-CreateCodePipeline/4.png) 
+![pline](/ThuanWS/images/8-CreateCodePipeline/4.png) 
 
 Để tạo pipeline cho Windows, thực hiện giống pipeline Linux nhưng ở Template Details (Step 3) đặt CodePipelineName là windows-pipeline, chọn:
 

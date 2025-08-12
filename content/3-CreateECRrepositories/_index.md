@@ -9,11 +9,11 @@ pre : " <b> 3. </b> "
 
 First, go to Amazon ECR in the AWS Management Console.
 
-![ecr](images/3-CreateECRrepositories/1.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/1.png) 
 
 Select Private registry → Repositories → Create repository.
 
-![ecr](images/3-CreateECRrepositories/2.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/2.png) 
 
 In the General settings section, enter repository name: linux-app
 
@@ -23,11 +23,11 @@ In the Encryption settings section, keep the default AES-256.
 
 Click Create repository.
 
-![ecr](images/3-CreateECRrepositories/3.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/3.png) 
 
 The results we get.
 
-![ecr](images/3-CreateECRrepositories/4.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/4.png) 
 
 ## Create repository for Windows application
 
@@ -35,6 +35,6 @@ Repeat the above steps but change the repository name to: windows-app
 
 After completion, the Repositories list should show:
 
-![ecr](images/3-CreateECRrepositories/5.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/5.png) 
 
 

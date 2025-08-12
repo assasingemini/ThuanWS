@@ -12,7 +12,7 @@ Cấu hình Windows EC2 để có thể nhận và phản hồi yêu cầu HTTP 
 
 Vào EC2 Console → Target Groups → Create target group.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/1.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/1.png) 
 
 Target type: IP.
 
@@ -24,27 +24,27 @@ Health check protocol: HTTP.
 
 Health check path: /.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/2.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/2.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/3.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/3.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/4.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/4.png) 
 
 Bấm Next, chọn Private IP của Linux EC2 → Include as pending below → Create target group.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/5.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/5.png) 
 
 AWS sẽ yêu cầu bạn Register targets (đăng ký các EC2 vào TG).
 
 Với Linux TG → chọn Private IP của Linux EC2 rồi bấm Include as pending below, sau đó Create target group.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/24.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/24.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/25.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/25.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/26.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/26.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/27.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/27.png) 
 
 ## Windows Target Group (tương tự Linux nhưng có thay đổi)
 
@@ -85,9 +85,9 @@ Với Windows TG → thực hiện tương tự, ngoại trừ Cổng là 8080 v
 ## Tạo Application Load Balancer
 Vào EC2 Console → Load Balancers → Create Load Balancer → Application Load Balancer.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/11.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/11.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/12.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/12.png) 
 
 Tên: app-alb.
 
@@ -103,17 +103,17 @@ Security group: Cho phép HTTP (80) từ Anywhere.
 
 Listeners: HTTP trên port 80, forward mặc định tới linux-tg.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/13.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/13.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/14.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/14.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/15.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/15.png) 
 
 Bấm Create load balancer.
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/16.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/16.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/17.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/17.png) 
 
 ## Thêm Listener Rule
 
@@ -125,17 +125,17 @@ IF Path is /win/* → Forward to windows-tg
 
 Giữ default rule forward tới linux-tg
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/18.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/18.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/19.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/19.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/20.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/20.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/21.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/21.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/22.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/22.png) 
 
-![tg](images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/23.png) 
+![tg](/ThuanWS/images/7-ConfigureandVerifyWindowsEC2ConnectiontoALBviaTargetGroup/23.png) 
 
 ## Cấu hình IIS trên Windows Instance
 

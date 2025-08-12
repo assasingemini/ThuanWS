@@ -9,11 +9,11 @@ pre : " <b> 3. </b> "
 
 Truy cập Amazon ECR trong AWS Management Console.
 
-![ecr](images/3-CreateECRrepositories/1.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/1.png) 
 
 Chọn Private registry → Repositories → Create repository.
 
-![ecr](images/3-CreateECRrepositories/2.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/2.png) 
 
 Trong mục General settings, nhập tên repository: linux-app
 
@@ -23,11 +23,11 @@ Trong phần Encryption settings, giữ nguyên mặc định AES-256.
 
 Nhấn Create repository.
 
-![ecr](images/3-CreateECRrepositories/3.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/3.png) 
 
 Kết quả chúng ta có được:
 
-![ecr](images/3-CreateECRrepositories/4.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/4.png) 
 
 ## Tạo repository cho ứng dụng Windows
 
@@ -35,5 +35,5 @@ Lặp lại các bước trên nhưng đổi tên repository thành: windows-app
 
 Sau khi hoàn thành, trong Repositories sẽ xuất hiện 2 repository:
 
-![ecr](images/3-CreateECRrepositories/5.png) 
+![ecr](/ThuanWS/images/3-CreateECRrepositories/5.png) 
 
