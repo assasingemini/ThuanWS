@@ -1,11 +1,9 @@
 # Base URL cho GitHub Pages
 baseURL = "https://assasingemini.github.io/ThuanWS/"
+theme = "hugo-theme-learn"
 publishDir = "public"
 theme = "hugo-theme-learn"
 relativeURLs = true
-
-# Change the default theme to be use when building the site with Hugo
-theme = "hugo-theme-learn"
 
 # For search functionality
 [outputs]
