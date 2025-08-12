@@ -1,8 +1,8 @@
-name: Deploy Hugo to GitHub Pages
+name: Deploy Hugo site to Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -12,7 +12,11 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   build:
@@ -21,25 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: false     # ta sẽ tự checkout submodule ở bước kế tiếp
+          submodules: true     # kéo theme nếu dùng submodule
           fetch-depth: 0
-
-      - name: Checkout submodules (Hugo theme)
-        run: git submodule update --init --recursive
-
-      # (Tuỳ chọn) Nếu theme cần Node để build asset, bật Node cache npm:
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: "20"
-      #     cache: "npm"
-      # - run: npm ci
-      # - run: npm run build
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: "0.128.2"   # đổi nếu máy bạn dùng bản khác
+          hugo-version: '0.128.2'
           extended: true
 
       - name: Build
@@ -62,4 +54,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      
