@@ -1,0 +1,85 @@
+[
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/1-github_repository/",
+	"title": "Tạo GitHub repository",
+	"tags": [],
+	"description": "",
+	"content": "Mục tiêu Tạo kho mã devops-crossplatform.\nHướng dẫn GitHub → New → Repository name: devops-crossplatform.\nVisibility: Public (or Private).\nCheck Add a README file → Create repository.\nKết quả "
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/",
+	"title": "Triển khai DevOps đa nền tảng cho môi trường Windows và Linux",
+	"tags": [],
+	"description": "",
+	"content": "Triển khai DevOps đa nền tảng cho môi trường Windows và Linux Mục tiêu lab Lab này giúp bạn làm quen và thực hành xây dựng quy trình DevOps đa nền tảng trên AWS, hỗ trợ triển khai ứng dụng trên cả môi trường Windows và Linux. Bạn sẽ học cách sử dụng các dịch vụ AWS cơ bản để tự động hóa việc build, deploy ứng dụng đa nền tảng và kiểm thử kết quả.\nLợi ích\nHiểu được quy trình DevOps đa nền tảng thực tế. Nắm vững các bước từ viết code, build Docker image đến deploy trên ECS. Làm quen với các dịch vụ AWS phổ biến phục vụ DevOps. Phát triển kỹ năng tự động hóa triển khai ứng dụng trên đám mây. Các dịch vụ chính sử dụng\nAWS CodeCommit - Kho lưu trữ mã nguồn Git AWS CodeBuild - Build mã nguồn và tạo Docker image Amazon ECR (Elastic Container Registry) - Lưu trữ và quản lý Docker images Amazon ECS Fargate - Triển khai và chạy container serverless Nội dung Tạo Git Hub repository Clone repo \u0026amp; đẩy mã nguồn Tạo repository trên ECR Tạo CodeBuild cho Linux Tạo CodeBuild cho Windows Tạo Security Groups (SG) cho ALB \u0026amp; Services Tạo và cấu hình Target Group cho Windows EC2 với ALB Tạo CodePipeline cho Linux và Windows Dọn dẹp tài nguyên AWS "
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/2-clonerepopushsource/",
+	"title": "Clone repo &amp; đẩy mã nguồn",
+	"tags": [],
+	"description": "",
+	"content": "Mục tiêu Đưa bộ mã mẫu đa nền tảng vào repo.\nCác file bắt buộc app.py (+ requirements.txt have Flask==3.0.3)\nmain.ps1\nDockerfile.linux, Dockerfile.windows\nbuildspec-linux.yml, buildspec-windows.yml\nLệnh git add -A git commit -m \u0026ldquo;Add Dockerfiles, buildspecs, Linux \u0026amp; Windows apps\u0026rdquo; git push -u origin main\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/3-createecrrepositories/",
+	"title": "Tạo repository trên ECR",
+	"tags": [],
+	"description": "",
+	"content": "Tạo repository cho ứng dụng Linux Truy cập Amazon ECR trong AWS Management Console.\nChọn Private registry → Repositories → Create repository.\nTrong mục General settings, nhập tên repository: linux-app\nTrong phần Image tag settings, giữ nguyên mặc định là Mutable.\nTrong phần Encryption settings, giữ nguyên mặc định AES-256.\nNhấn Create repository.\nKết quả chúng ta có được:\nTạo repository cho ứng dụng Windows Lặp lại các bước trên nhưng đổi tên repository thành: windows-app\nSau khi hoàn thành, trong Repositories sẽ xuất hiện 2 repository:\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/4-createcodebuildforlinux/",
+	"title": "Tạo CodeBuild cho Linux",
+	"tags": [],
+	"description": "",
+	"content": "Tạo CodeBuild cho Linux Vào AWS CodeBuild → Create build project. Project name: build-linux.\nỞ Source provider chúng ta sẽ chọn GitHub. Bạn có thể kết nối Github account với AWS như sau:\nỞ đây bạn sẽ nhập mật khẩu của tài khoản GitHub của mình\nSau khi làm các bước ở trên chúng ta có thể quay trở lại phần source và chọn theo như hình\nKéo xuống environment chúng ta sẽ cấu hình như trong hình:\nSau đó ở phần Buildspec sẽ làm theo như trong hình:\nCuối cùng Artifact và Logs sẽ cấu hình như hình bên dưới và chúng ta sẽ bấm vào Create build project\nĐây là thông báo sau khi build project thành công\nGán quyền IAM cho CodeBuild Vào IAM → Roles\nTìm role vừa tạo cho CodeBuild\nAttach policy: AmazonEC2ContainerRegistryPowerUser\nSau đó chúng ta sẽ quay về CodeBuild để chạy build-linux\nBấm vào Start build nếu thành công sẽ có kết quả như hình bên dưới\nSau đó chúng ta vào ECR → linux-app → Images để kiểm tra image đã push thành công\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/5-createcodebuildforwindows/",
+	"title": "Tạo CodeBuild cho Windows",
+	"tags": [],
+	"description": "",
+	"content": "Mục tiêu Xây dựng một ảnh container Windows từ Dockerfile.windows và đẩy nó lên Amazon ECR (us-east-1) bằng AWS CodeBuild (Windows – Chế độ phiên bản).\nĐiều kiện tiên quyết Kho GitHub của bạn chứa: Dockerfile.windows, main.ps1 và buildspec-windows.yml (tại thư mục gốc của kho).\nTên kho ECR: windows-app trong us-east-1 (buildspec có thể tự động tạo).\nVai trò dịch vụ CodeBuild có quyền ECR — dễ nhất: AmazonEC2ContainerRegistryPowerUser.\nTạo dự án CodeBuild cho Windows Chúng ta cũng sẽ làm tương tự khi tạo CodeBuild cho Linux\nTrước tiên, hãy vào CodeBuild, đặt tên là build-windows, cấu hình như hình dưới đây, những phần còn lại sẽ tương tự như cấu hình cho build-linux\nSau khi tạo dự án thành công, chúng ta sẽ cấp quyền ECR cho vai trò CodeBuild.\nCuối cùng chúng ta sẽ quay lại CodeBuild để xây dựng dự án build-windows\nSau khi xây dựng, hãy quay lại ecr. Nếu window-apps có thẻ hình ảnh với phần mở rộng \u0026ldquo;latest\u0026rdquo; thì đã thành công.\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/6-sg_for_albservices/",
+	"title": "Tạo Security Groups (SG) cho ALB &amp; Services",
+	"tags": [],
+	"description": "",
+	"content": "Mục tiêu ALB nhận HTTP từ Internet.\nChỉ ALB mới có thể truy cập các container Linux (cổng 5000) và container Windows (cổng 8080).\nTheo mặc định, Outbound được đặt thành Allow all.\nSG cho ALB (alb-sg) Vào EC2 → Security Groups → Create security group.\nSecurity group name: alb-sg\nDescription: ALB allow HTTP 80 from Internet\nVPC: VPC đang hoạt động của bạn.\nInbound rules → Add rule\nType: HTTP\nPort range: 80\nSource: 0.0.0.0/0 (optionally ::/0 if using IPv6)\nOutbound rules: giữ nguyên mặc định All traffic (0.0.0.0/0).\nSau đó, nhấp vào \u0026ldquo;Create security group\u0026rdquo;.\nSG cho dịch vụ Linux (ecs-linux-sg) Vào EC2 → Security Groups → Create security group.\nSecurity group name: ecs-linux-sg\nDescription: Allow ALB to Linux service on port 5000\nVPC: cùng VPC với ALB.\nInbound rules → Add rule\nType: Custom TCP\nPort range: 5000\nSource: Custom → Security group, sau đó select alb-sg (search by sg-\u0026hellip; or name).\nQuan trọng: nguồn phải là SG alb-sg, không phải 0.0.0.0/0.\nOutbound rules: giữ nguyên mặc định là All traffic.\nTags → Add tag: Name = ecs-linux-sg. Sau đó, bấm vào \u0026ldquo;Create security group\u0026rdquo;.\nSG cho dịch vụ Windows (ecs-win-sg) Tương tự như tạo ecs-linux-sg cho Linux, chỉ cần một số thay đổi\nDưới đây là kết quả chúng ta nhận được sau khi tạo SecurityGroups\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/7-configureandverifywindowsec2connectiontoalbviatargetgroup/",
+	"title": "Tạo và cấu hình Target Group cho Windows EC2 với ALB",
+	"tags": [],
+	"description": "",
+	"content": "Mục tiêu Cấu hình Windows EC2 để có thể nhận và phản hồi yêu cầu HTTP từ Application Load Balancer (ALB) thông qua Target Group, đảm bảo health check của Target Group trả về trạng thái Healthy.\nTạo Target Group Vào EC2 Console → Target Groups → Create target group.\nTarget type: IP.\nProtocol: HTTP, Port: 80.\nVPC: Select the same VPC as your Linux EC2.\nHealth check protocol: HTTP.\nHealth check path: /.\nBấm Next, chọn Private IP của Linux EC2 → Include as pending below → Create target group.\nAWS sẽ yêu cầu bạn Register targets (đăng ký các EC2 vào TG).\nVới Linux TG → chọn Private IP của Linux EC2 rồi bấm Include as pending below, sau đó Create target group.\nWindows Target Group (tương tự Linux nhưng có thay đổi) Port:\nLinux: 80\nWindows: 8080 (vì IIS/Web app chạy trên 8080).\nHealth check path:\nLinux: /\nWindows: /win/ (vì trang test đặt trong thư mục win).\nPrivate IP:\nLinux: Private IP của EC2 Linux.\nWindows: Private IP của EC2 Windows.\nSecurity Group rule:\nLinux: Mở cổng 80 cho ALB SG.\nWindows: Mở cổng 8080 cho ALB SG và mở cổng 8080 trong Tường lửa Windows.\nListener / Rule trong ALB:\nLinux: listener HTTP:80 → forward linux-tg (mặc định).\nWindows: thêm quy tắc Path: /win/* → forward windows-tg.\nAWS sẽ yêu cầu bạn Đăng ký mục tiêu (đăng ký EC2 với TG).\nVới Windows TG → thực hiện tương tự, ngoại trừ Cổng là 8080 và đường dẫn kiểm tra tình trạng là /win/.\nTạo Application Load Balancer Vào EC2 Console → Load Balancers → Create Load Balancer → Application Load Balancer.\nTên: app-alb.\nScheme: Internet-facing.\nIP address type: IPv4.\nVPC: trùng với EC2 instances.\nMappings: Chọn ít nhất 2 subnet ở 2 AZ khác nhau.\nSecurity group: Cho phép HTTP (80) từ Anywhere.\nListeners: HTTP trên port 80, forward mặc định tới linux-tg.\nBấm Create load balancer.\nThêm Listener Rule Chọn ALB app-alb → Listeners → HTTP:80 → View/edit rules\nThêm Rule:\nIF Path is /win/* → Forward to windows-tg\nGiữ default rule forward tới linux-tg\nCấu hình IIS trên Windows Instance (Nếu chưa cài IIS và binding 8080, chạy các lệnh này trong PowerShell – Run as Administrator)\ndism /online /enable-feature /featurename:IIS-WebServerRole /all dism /online /enable-feature /featurename:IIS-ManagementConsole\nNew-Item -ItemType Directory -Path \u0026ldquo;C:\\inetpub\\wwwroot\\win\u0026rdquo; -Force | Out-Null \u0026ldquo;Hello from Windows $env:COMPUTERNAME\u0026rdquo; | Out-File \u0026ldquo;C:\\inetpub\\wwwroot\\win\\index.html\u0026rdquo; -Encoding utf8\nImport-Module WebAdministration New-WebBinding -Name \u0026ldquo;Default Web Site\u0026rdquo; -Protocol http -Port 8080 -IPAddress \u0026ldquo;*\u0026rdquo;\nNew-NetFirewallRule -DisplayName \u0026ldquo;IIS 8080 Inbound\u0026rdquo; -Direction Inbound -Protocol TCP -LocalPort 8080 -Action Allow\niisreset\nTruy cập http://localhost:8080/win/ trong Windows instance sẽ hiển thị Hello from Windows…\nKiểm tra Health Check Vào Target Groups → linux-tg \u0026amp; windows-tg\nĐảm bảo trạng thái cả hai là healthy\nTruy cập qua ALB DNS để xác nhận routing hoạt động.\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/8-createcodepipeline/",
+	"title": "Tạo CodePipeline cho Linux và Windows",
+	"tags": [],
+	"description": "",
+	"content": "Mục tiêu Tự động hóa quy trình build và deploy ứng dụng Linux và Windows từ GitHub lên ECS thông qua AWS CodePipeline, sử dụng CodeBuild đã tạo trước đó.\nChọn Template Vào AWS Console → tìm CodePipeline → chọn Create pipeline.\nỞ mục Category, chọn Deployment.\nTrong phần Template, chọn Push to ECR.\nChọn Nguồn Source provider: chọn GitHub (via GitHub App).\nNhấn Connect to GitHub (nếu chưa có connection).\nChọn repository chứa mã nguồn (VD: assasignemini/devops-crossplatform).\nChọn branch main.\nGiữ Output artifact format là CodePipeline default.\nBấm Next.\nCấu hình Template CodePipelineName: đặt tên pipeline (VD: linux-pipeline hoặc windows-pipeline).\nDockerBuildContext: .\nDockerFilePath: ./Dockerfile\nImageTag: latest\nRetentionPolicy: chọn Delete để xoá tài nguyên phụ trợ khi xoá stack.\nBấm Create pipeline from template để hoàn tất.\nKết quả sau khi tạo Pipeline Pipeline hiển thị 2 stage:\nSource: Lấy code từ GitHub qua CodeConnections.\nBuild_and_Deploy: Build Docker image và push lên ECR.\nMàu xanh báo thành công, xanh dương báo đang chạy.\nNếu không muốn build tốn tài nguyên, có thể bấm Stop execution ngay sau khi tạo.\nHình dưới đây là chỉ mới tạo pipeline cho Linux\nĐể tạo pipeline cho Windows, thực hiện giống pipeline Linux nhưng ở Template Details (Step 3) đặt CodePipelineName là windows-pipeline, chọn:\nDockerBuildContext: .\nDockerFilePath: ./Dockerfile.windows\nChọn ECR repository cho Windows (nếu có).\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/9-cleanupawsresources/",
+	"title": "Dọn dẹp tài nguyên AWS",
+	"tags": [],
+	"description": "",
+	"content": "Mục tiêu Xóa các tài nguyên AWS đã tạo trong quá trình làm lab để tránh phát sinh chi phí không cần thiết.\nXóa Pipelines Vào AWS Console → CodePipeline.\nChọn linux-pipeline và windows-pipeline.\nNhấn Delete và xác nhận.\nXóa CodeBuild Projects Vào AWS Console → CodeBuild.\nChọn các project build được tạo bởi pipeline (ví dụ: Docker_Build_Tag_and_Push).\nNhấn Delete.\nXóa EC2 Instances và Security Groups Vào AWS Console → EC2 → Instances.\nChọn instance Linux và Windows → Terminate.\nVào Security Groups, xóa các nhóm bảo mật tạo riêng cho lab (nếu không dùng cho dịch vụ khác).\nXóa Target Groups và Load Balancer Vào AWS Console → EC2 → Load Balancers, xóa Application Load Balancer của lab.\nVào Target Groups, xóa linux-tg và windows-tg.\nKiểm tra Billing Vào AWS Console → Billing → Bills.\nXác nhận không còn dịch vụ nào đang chạy (EC2, ECR, CodeBuild, ALB…).\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/vi/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

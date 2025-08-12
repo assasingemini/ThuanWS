@@ -1,0 +1,85 @@
+[
+{
+	"uri": "http://localhost:1313/ThuanWS/1-github_repository/",
+	"title": "Create GitHub repository",
+	"tags": [],
+	"description": "",
+	"content": "Objective Create a repo named devops-crossplatform\nInstructions GitHub → New → Repository name: devops-crossplatform.\nVisibility: Public (or Private).\nCheck Add a README file → Create repository.\nExpected Result "
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/",
+	"title": "Cross-Platform DevOps with Windows and Linux Environments",
+	"tags": [],
+	"description": "",
+	"content": "Cross-Platform DevOps with Windows and Linux Environments Lab Objectives This lab helps you get familiar with and practice building a cross-platform DevOps workflow on AWS, supporting deployment of applications on both Windows and Linux environments. You will learn how to use basic AWS services to automate building, deploying cross-platform applications, and test the results.\nBenefits of this Lab\nUnderstand practical cross-platform DevOps workflows. Master steps from coding, building Docker images to deploying on ECS. Get familiar with popular AWS services used in DevOps. Develop skills to automate application deployment on the cloud. Key AWS Services Used\nAWS CodeCommit - Git source code repository AWS CodeBuild - Build source and create Docker images Amazon ECR (Elastic Container Registry) - Store and manage Docker images Amazon ECS Fargate - Serverless container deployment and running Content Create GitHub repository Clonerepo \u0026amp; pushsource Create ECR repositoriesn Create CodeBuild for Linux Create CodeBuild for Windows Create Security Groups (SG) for ALB \u0026amp; Services Create and Configure Windows EC2 Target Group with ALB Create CodePipeline for Linux and Windows Clean Up AWS Resources "
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/2-clonerepopushsource/",
+	"title": "Clone repo &amp; push source",
+	"tags": [],
+	"description": "",
+	"content": "Objective Put the minimal cross-platform sample into the repo.\nRequired files app.py (+ requirements.txt have Flask==3.0.3)\nmain.ps1\nDockerfile.linux, Dockerfile.windows\nbuildspec-linux.yml, buildspec-windows.yml\nCommands git add -A git commit -m \u0026ldquo;Add Dockerfiles, buildspecs, Linux \u0026amp; Windows apps\u0026rdquo; git push -u origin main\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/3-createecrrepositories/",
+	"title": "Create ECR repositories",
+	"tags": [],
+	"description": "",
+	"content": "Create repository for Linux application First, go to Amazon ECR in the AWS Management Console.\nSelect Private registry → Repositories → Create repository.\nIn the General settings section, enter repository name: linux-app\nIn the Image tag settings section, keep the default Mutable.\nIn the Encryption settings section, keep the default AES-256.\nClick Create repository.\nThe results we get.\nCreate repository for Windows application Repeat the above steps but change the repository name to: windows-app\nAfter completion, the Repositories list should show:\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/4-createcodebuildforlinux/",
+	"title": "Create CodeBuild for Linux",
+	"tags": [],
+	"description": "",
+	"content": "Create CodeBuild for Linux Vào AWS CodeBuild → Create build project. Project name: build-linux.\nIn Source provider we will choose GitHub. You can connect Github account with AWS as follows:\nHere you will enter the password of your GitHub account\nAfter doing the above steps, we can go back to the source section and select as shown.\nScroll down to the environment and we will configure it as shown in the picture:\nThen in the Buildspec section, do as shown in the picture:\nFinally, Artifact and Logs will be configured as shown below and we will click on Create build project\nThis is the message after the project build is successful\nGán quyền IAM cho CodeBuild Go to IAM → Roles\nFind the newly created role for CodeBuild\nAttach policy: AmazonEC2ContainerRegistryPowerUser\nThen we will go back to CodeBuild to run build-linux\nBấm vào Start build nếu thành công sẽ có kết quả như hình bên dưới\nClick Start build if successful, the result will be as shown below.\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/5-createcodebuildforwindows/",
+	"title": "Create CodeBuild for Windows",
+	"tags": [],
+	"description": "",
+	"content": "Goal Build a Windows container image from Dockerfile.windows and push it to Amazon ECR (us-east-1) using AWS CodeBuild (Windows – Instance mode).\nPrerequisites Your GitHub repo contains: Dockerfile.windows, main.ps1, and buildspec-windows.yml (at repo root).\nECR repository name: windows-app in us-east-1 (the buildspec can auto-create it).\nCodeBuild service role has ECR permissions — easiest: AmazonEC2ContainerRegistryPowerUser.\nCreate the CodeBuild project for Windows We will also do almost the same with creating CodeBuild for Linux\nFirst go to CodeBuild, name it build-windows, configure as shown below, the rest will be similar to the configuration for build-linux\nAfter successfully creating the project, we will grant ECR permissions to CodeBuild role.\nFinally we will go back to CodeBuild to build the build-windows project\nAfter building, go back to ECR. If window-apps has an image tag with the latest extension, it is successful.\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/6-sg_for_albservices/",
+	"title": "Create Security Groups (SG) for ALB &amp; Services",
+	"tags": [],
+	"description": "",
+	"content": "Goal ALB receives HTTP from the Internet.\nOnly ALB can access Linux containers (port 5000) and Windows containers (port 8080).\nOutbound is set to Allow all by default.\nSG cho ALB (alb-sg) Go to EC2 → Security Groups → Create security group.\nSecurity group name: alb-sg\nDescription: ALB allow HTTP 80 from Internet\nVPC: your working VPC.\nInbound rules → Add rule\nType: HTTP\nPort range: 80\nSource: 0.0.0.0/0 (optionally ::/0 if using IPv6)\nOutbound rules: keep the default All traffic (0.0.0.0/0).\nThen, click \u0026ldquo;Create security group\u0026rdquo;.\nSG cho service Linux (ecs-linux-sg) Go to EC2 → Security Groups → Create security group.\nSecurity group name: ecs-linux-sg\nDescription: Allow ALB to Linux service on port 5000\nVPC: same VPC as ALB.\nInbound rules → Add rule\nType: Custom TCP\nPort range: 5000\nSource: Custom → Security group, then select alb-sg (search by sg-\u0026hellip; or name).\nImportant: the source must be SG alb-sg, not 0.0.0.0/0.\nOutbound rules: keep default All traffic.\nTags → Add tag: Name = ecs-linux-sg. Then, click \u0026ldquo;Create security group\u0026rdquo;.\nSG cho service Windows (ecs-win-sg) Similar to make linux ecs-linux-sg, just some changes\nBelow is the result we get after creating the SecurityGroups\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/7-configureandverifywindowsec2connectiontoalbviatargetgroup/",
+	"title": "Create and Configure Windows EC2 Target Group with ALB",
+	"tags": [],
+	"description": "",
+	"content": "Objective Configure Windows EC2 to receive and respond to HTTP requests from an Application Load Balancer (ALB) via a Target Group, ensuring the Target Group health check returns a Healthy status.\nTạo Target Group Navigate to EC2 Console → Target Groups → Create target group.\nTarget type: IP\nProtocol: HTTP, Port: 80\nVPC: Select the same VPC as your Linux EC2\nHealth check protocol: HTTP\nHealth check path: /\nClick Next, select the Private IP of the Linux EC2 → Include as pending below → Create target group.\nAWS will prompt you to register targets (register EC2s to TG).\nWith Linux TG → select Private IP of Linux EC2 then click Include as pending below, then Create target group.\nWindows Target Group (similar to Linux but with changes) Port:\nLinux: 80\nWindows: 8080 (because IIS/Web app runs on 8080).\nHealth check path:\nLinux: /\nWindows: /win/ (because the test page is located in the win folder).\nPrivate IP:\nLinux: Private IP of EC2 Linux.\nWindows: Private IP of EC2 Windows.\nSecurity Group rule:\nLinux: Mở port 80 cho ALB SG.\nWindows: Mở port 8080 cho ALB SG và mở port 8080 trong Windows Firewall.\nListener / Rule trong ALB:\nLinux: listener HTTP:80 → forward linux-tg (mặc định).\nWindows: thêm rule Path: /win/* → forward windows-tg.\nAWS sẽ yêu cầu bạn Register targets (đăng ký các EC2 vào TG).\nVới Windows TG → làm tương tự, chỉ khác Port là 8080 và Health check path là /win/.\nTạo Application Load Balancer Vào EC2 Console → Load Balancers → Create Load Balancer → Application Load Balancer.\nName: app-alb.\nScheme: Internet-facing.\nIP address type: IPv4.\nVPC: same as EC2 instances.\nMappings: Select at least 2 subnets in 2 different AZs.\nSecurity group: Allow HTTP (80) from Anywhere.\nListeners: HTTP on port 80, default forward to linux-tg.\nClick Create load balancer.\nAdd Listener Rule Select ALB app-alb → Listeners → HTTP:80 → View/edit rules\nAdd Rules:\nIF Path is /win/* → Forward to windows-tg\nKeep default rule forward to linux-tg\nConfiguring IIS on Windows Instance (If you don\u0026rsquo;t have IIS installed and binding 8080, run these commands in PowerShell – Run as Administrator)\ndism /online /enable-feature /featurename:IIS-WebServerRole /all dism /online /enable-feature /featurename:IIS-ManagementConsole\nNew-Item -ItemType Directory -Path \u0026ldquo;C:\\inetpub\\wwwroot\\win\u0026rdquo; -Force | Out-Null \u0026ldquo;Hello from Windows $env:COMPUTERNAME\u0026rdquo; | Out-File \u0026ldquo;C:\\inetpub\\wwwroot\\win\\index.html\u0026rdquo; -Encoding utf8\nImport-Module WebAdministration New-WebBinding -Name \u0026ldquo;Default Web Site\u0026rdquo; -Protocol http -Port 8080 -IPAddress \u0026ldquo;*\u0026rdquo;\nNew-NetFirewallRule -DisplayName \u0026ldquo;IIS 8080 Inbound\u0026rdquo; -Direction Inbound -Protocol TCP -LocalPort 8080 -Action Allow\niisreset\nAccessing http://localhost:8080/win/ in Windows instance will display Hello from Windows…\nHealth Check Go to Target Groups → linux-tg \u0026amp; windows-tg\nEnsure both status is healthy\nAccess via ALB DNS to confirm routing is working.\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/8-createcodepipeline/",
+	"title": "Create CodePipeline for Linux and Windows",
+	"tags": [],
+	"description": "",
+	"content": "Objective Automate the process of building and deploying Linux and Windows applications from GitHub to ECS via AWS CodePipeline, using a previously created CodeBuild.\nSelect Template Go to AWS Console → find CodePipeline → select Create pipeline.\nIn Category, select Deployment.\nIn Template, select Push to ECR.\nSelect Source Source provider: select GitHub (via GitHub App).\nClick Connect to GitHub (if not connected yet).\nSelect the repository containing the source code (eg assasignemini/devops-crossplatform).\nSelect the main branch.\nKeep Output artifact format as CodePipeline default.\nClick Next.\nTemplate Configuration CodePipelineName: name the pipeline (eg: linux-pipeline or windows-pipeline).\nDockerBuildContext: .\nDockerFilePath: ./Dockerfile\nImageTag: latest\nRetentionPolicy: select Delete to delete the auxiliary resources when deleting the stack.\nClick Create pipeline from template to finish.\nResults after creating Pipeline Pipeline shows 2 stages:\nSource: Get code from GitHub via CodeConnections.\nBuild_and_Deploy: Build Docker image and push to ECR.\nGreen indicates success, blue indicates running.\nIf you don\u0026rsquo;t want to build to waste resources, you can click Stop execution right after creating.\nThe image below shows just creating a pipeline for Linux\nTo create a pipeline for Windows, do the same as the Linux pipeline but in Template Details (Step 3) set CodePipelineName to windows-pipeline, select:\nDockerBuildContext: .\nDockerFilePath: ./Dockerfile.windows\nSelect the ECR repository for Windows (if available).\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/9-cleanupawsresources/",
+	"title": "Clean Up AWS Resources",
+	"tags": [],
+	"description": "",
+	"content": "Objective Delete AWS resources created during the lab to avoid unnecessary costs.\nDelete Pipelines Go to AWS Console → CodePipeline.\nSelect linux-pipeline and windows-pipeline.\nClick Delete and confirm.\nDelete CodeBuild Projects Go to AWS Console → CodeBuild.\nSelect build projects created by the pipeline (e.g. Docker_Build_Tag_and_Push).\nClick Delete.\nDelete EC2 Instances and Security Groups Go to AWS Console → EC2 → Instances.\nSelect Linux and Windows instances → Terminate.\nGo to Security Groups, delete security groups created specifically for the lab (if not used for other services).\nDelete Target Groups and Load Balancer Go to AWS Console → EC2 → Load Balancers, delete the lab\u0026rsquo;s Application Load Balancer.\nGo to Target Groups, delete linux-tg and windows-tg.\nCheck Billing Go to AWS Console → Billing → Bills.\nConfirm that no services are running (EC2, ECR, CodeBuild, ALB…).\n"
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "http://localhost:1313/ThuanWS/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

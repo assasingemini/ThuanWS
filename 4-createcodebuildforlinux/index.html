@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head><script src="/ThuanWS/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=ThuanWS/livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.148.2">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="../ThuanWS/images/favicon.png" type="image/png">
+
+    <title>Create CodeBuild for Linux :: AWS System Manager</title>
+
+    
+    <link href="../ThuanWS/css/nucleus.css?1755005570" rel="stylesheet">
+    <link href="../ThuanWS/css/fontawesome-all.min.css?1755005570" rel="stylesheet">
+    <link href="../ThuanWS/css/hybrid.css?1755005570" rel="stylesheet">
+    <link href="../ThuanWS/css/featherlight.min.css?1755005570" rel="stylesheet">
+    <link href="../ThuanWS/css/perfect-scrollbar.min.css?1755005570" rel="stylesheet">
+    <link href="../ThuanWS/css/auto-complete.css?1755005570" rel="stylesheet">
+    <link href="../ThuanWS/css/atom-one-dark-reasonable.css?1755005570" rel="stylesheet">
+    <link href="../ThuanWS/css/theme.css?1755005570" rel="stylesheet">
+    <link href="../ThuanWS/css/hugo-theme.css?1755005570" rel="stylesheet">
+    
+    <link href="../ThuanWS/css/theme-workshop.css?1755005570" rel="stylesheet">
+    
+    
+
+    <script src="../ThuanWS/js/jquery-3.3.1.min.js?1755005570"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="../ThuanWS/4-createcodebuildforlinux/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="../">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="../ThuanWS/js/lunr.min.js?1755005570"></script>
+<script type="text/javascript" src="../ThuanWS/js/auto-complete.js?1755005570"></script>
+<script type="text/javascript">
+    
+        var baseurl = "http:\/\/localhost:1313\/ThuanWS\/";
+    
+</script>
+<script type="text/javascript" src="../ThuanWS/js/search.js?1755005570"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/ThuanWS/1-github_repository/" title="Create GitHub repository" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../ThuanWS/1-github_repository/">
+           <b> 1. </b> Create GitHub repository
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/ThuanWS/2-clonerepopushsource/" title="Clone repo &amp; push source" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../ThuanWS/2-clonerepopushsource/">
+           <b> 2. </b> Clone repo &amp; push source
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/ThuanWS/3-createecrrepositories/" title="Create ECR repositories" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../ThuanWS/3-createecrrepositories/">
+           <b> 3. </b> Create ECR repositories
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/ThuanWS/4-createcodebuildforlinux/" title="Create CodeBuild for Linux" class="dd-item 
+        
+        active
+        
+        ">
+      <a href="../ThuanWS/4-createcodebuildforlinux/">
+           <b> 4. </b> Create CodeBuild for Linux
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/ThuanWS/5-createcodebuildforwindows/" title="Create CodeBuild for Windows" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../ThuanWS/5-createcodebuildforwindows/">
+           <b> 5. </b> Create CodeBuild for Windows
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/ThuanWS/6-sg_for_albservices/" title="Create Security Groups (SG) for ALB &amp; Services" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../ThuanWS/6-sg_for_albservices/">
+           <b> 6. </b> Create Security Groups (SG) for ALB &amp; Services
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/ThuanWS/7-configureandverifywindowsec2connectiontoalbviatargetgroup/" title="Create and Configure Windows EC2 Target Group with ALB" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../ThuanWS/7-configureandverifywindowsec2connectiontoalbviatargetgroup/">
+           <b> 7. </b> Create and Configure Windows EC2 Target Group with ALB
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/ThuanWS/8-createcodepipeline/" title="Create CodePipeline for Linux and Windows" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../ThuanWS/8-createcodepipeline/">
+           <b> 8. </b> Create CodePipeline for Linux and Windows
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/ThuanWS/9-cleanupawsresources/" title="Clean Up AWS Resources" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../ThuanWS/9-cleanupawsresources/">
+           <b> 9. </b> Clean Up AWS Resources
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="http://localhost:1313/ThuanWS/4-createcodebuildforlinux/" selected>English</option>
+                    
+                  
+              
+                  
+              
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="vi" value="http://localhost:1313/ThuanWS/vi/4-createcodebuildforlinux/">Tiếng Việt</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+    
+     <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7920860&style=0038&nbdigits=9&type=page&initCount=0" title="Migrate" Alt="web counter"   border="0" /></a>  <br>
+     <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0" title="Total CLoud Journey" Alt="web counter"   border="0"   />
+     
+</left>
+<left>
+    <br>
+    <br>
+        <b> Last Updated </b> <br>
+        <i><font color=orange>30-01-2022</font></i>
+    </left>
+    <left>
+        <br>
+        <br>
+            <b> Team </b> <br>
+           
+            <i> <a href="https://www.linkedin.com/in/sutrinh/"  style="color:orange">Sử Trịnh  </a> <br>
+                <a href="https://www.linkedin.com/in/jotaguy"  style="color:orange">Gia Hưng </a> <br>
+                <a href="https://www.linkedin.com/in/hiepnguyendt"  style="color:orange">Thanh Hiệp </a>
+               
+        </i>
+        </left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='../ThuanWS/'>Cross-Platform DevOps with Windows and Linux Environments</a> > Create CodeBuild for Linux
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#create-codebuild-for-linux">Create CodeBuild for Linux</a></li>
+    <li><a href="#gán-quyền-iam-cho-codebuild">Gán quyền IAM cho CodeBuild</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Create CodeBuild for Linux
+            </h1>
+          
+
+        
+
+
+
+	<h2 id="create-codebuild-for-linux">Create CodeBuild for Linux</h2>
+<p>Vào AWS CodeBuild → Create build project. Project name: build-linux.</p>
+<p><img src="images/4-CreateCodeBuildforLinux/1.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/2.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/3.png" alt="linux"></p>
+<p>In Source provider we will choose GitHub. You can connect Github account with AWS as follows:</p>
+<p><img src="images/4-CreateCodeBuildforLinux/4.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/5.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/6.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/7.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/8.png" alt="linux"></p>
+<p>Here you will enter the password of your GitHub account</p>
+<p><img src="images/4-CreateCodeBuildforLinux/10.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/11.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/12.png" alt="linux"></p>
+<p>After doing the above steps, we can go back to the source section and select as shown.</p>
+<p><img src="images/4-CreateCodeBuildforLinux/13.png" alt="linux"></p>
+<p>Scroll down to the environment and we will configure it as shown in the picture:</p>
+<p><img src="images/4-CreateCodeBuildforLinux/14.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/15.png" alt="linux"></p>
+<p>Then in the Buildspec section, do as shown in the picture:</p>
+<p><img src="images/4-CreateCodeBuildforLinux/16.png" alt="linux"></p>
+<p>Finally, Artifact and Logs will be configured as shown below and we will click on Create build project</p>
+<p><img src="images/4-CreateCodeBuildforLinux/17.png" alt="linux"></p>
+<p>This is the message after the project build is successful</p>
+<p><img src="images/4-CreateCodeBuildforLinux/18.png" alt="linux"></p>
+<h2 id="gán-quyền-iam-cho-codebuild">Gán quyền IAM cho CodeBuild</h2>
+<p>Go to IAM → Roles</p>
+<p><img src="images/4-CreateCodeBuildforLinux/19.png" alt="linux"></p>
+<p>Find the newly created role for CodeBuild</p>
+<p><img src="images/4-CreateCodeBuildforLinux/20.png" alt="linux"></p>
+<p>Attach policy: AmazonEC2ContainerRegistryPowerUser</p>
+<p><img src="images/4-CreateCodeBuildforLinux/21.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/22.png" alt="linux"></p>
+<p>Then we will go back to CodeBuild to run build-linux</p>
+<p><img src="images/4-CreateCodeBuildforLinux/23.png" alt="linux"></p>
+<p>Bấm vào Start build nếu thành công sẽ có kết quả như hình bên dưới</p>
+<p><img src="images/4-CreateCodeBuildforLinux/24.png" alt="linux"></p>
+<p>Click Start build if successful, the result will be as shown below.</p>
+<p><img src="images/4-CreateCodeBuildforLinux/25.png" alt="linux"></p>
+<p><img src="images/4-CreateCodeBuildforLinux/26.png" alt="linux"></p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="../ThuanWS/3-createecrrepositories/" title="Create ECR repositories"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="../ThuanWS/5-createcodebuildforwindows/" title="Create CodeBuild for Windows" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="../ThuanWS/js/clipboard.min.js?1755005570"></script>
+    <script src="../ThuanWS/js/perfect-scrollbar.min.js?1755005570"></script>
+    <script src="../ThuanWS/js/perfect-scrollbar.jquery.min.js?1755005570"></script>
+    <script src="../ThuanWS/js/jquery.sticky.js?1755005570"></script>
+    <script src="../ThuanWS/js/featherlight.min.js?1755005570"></script>
+    <script src="../ThuanWS/js/highlight.pack.js?1755005570"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../ThuanWS/js/modernizr.custom-3.6.0.js?1755005570"></script>
+    <script src="../ThuanWS/js/learn.js?1755005570"></script>
+    <script src="../ThuanWS/js/hugo-learn.js?1755005570"></script>
+
+    <link href="../ThuanWS/mermaid/mermaid.css?1755005570" rel="stylesheet" />
+    <script src="../ThuanWS/mermaid/mermaid.js?1755005570"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
