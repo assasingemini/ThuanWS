@@ -11,17 +11,20 @@ This lab helps you get familiar with and practice building a cross-platform DevO
 
 **Benefits of this Lab**
 - Understand practical cross-platform DevOps workflows.
-- Master steps from coding, building Docker images to deploying on ECS.
+- Practice building Linux and Windows Docker images with CodeBuild and pushing them to Amazon ECR.
 - Get familiar with popular AWS services used in DevOps.
 - Develop skills to automate application deployment on the cloud.
 
 **Key AWS Services Used**
-- AWS CodeCommit - Git source code repository
+- GitHub (via AWS CodeConnections) - Git source code repository
 - AWS CodeBuild - Build source and create Docker images
 - Amazon ECR (Elastic Container Registry) - Store and manage Docker images
-- Amazon ECS Fargate - Serverless container deployment and running
+- AWS CodePipeline - Automate build and push for Linux and Windows
+- Application Load Balancer - Path-based routing to Linux and Windows EC2
 
 ![cấu trúc](/ThuanWS/images/pic.png) 
+
+*The diagram shows the target architecture from the project proposal. This lab implements the CI pipeline (build and push images) and ALB routing to Linux/Windows EC2.*
 
 ### Content
 1. [Create GitHub repository](1-GitHub_repository/)
