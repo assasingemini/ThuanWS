@@ -1,4 +1,4 @@
-﻿---
+---
 title : "Triển khai DevOps đa nền tảng cho môi trường Windows và Linux"
 date: 2025-08-07
 weight : 1 
@@ -11,17 +11,20 @@ Lab này giúp bạn làm quen và thực hành xây dựng quy trình DevOps đ
 
 **Lợi ích**
 - Hiểu được quy trình DevOps đa nền tảng thực tế.
-- Nắm vững các bước từ viết code, build Docker image đến deploy trên ECS.
+- Thực hành build Docker image cho Linux và Windows bằng CodeBuild và đẩy lên Amazon ECR.
 - Làm quen với các dịch vụ AWS phổ biến phục vụ DevOps.
 - Phát triển kỹ năng tự động hóa triển khai ứng dụng trên đám mây.
 
 **Các dịch vụ chính sử dụng**
-- AWS CodeCommit - Kho lưu trữ mã nguồn Git
+- GitHub (kết nối qua AWS CodeConnections) - Kho lưu trữ mã nguồn
 - AWS CodeBuild - Build mã nguồn và tạo Docker image 
 - Amazon ECR (Elastic Container Registry) - Lưu trữ và quản lý Docker images 
-- Amazon ECS Fargate - Triển khai và chạy container serverless
+- AWS CodePipeline - Tự động build và đẩy image cho Linux và Windows
+- Application Load Balancer - Định tuyến theo đường dẫn tới EC2 Linux và Windows
 
 ![cấu trúc](/ThuanWS/images/pic.png) 
+
+*Sơ đồ thể hiện kiến trúc mục tiêu trong Project Proposal. Lab này thực hiện phần pipeline build/đẩy image và ALB định tuyến tới EC2 Linux/Windows.*
 
 ### Nội dung
 1. [Tạo Git Hub repository](1-GitHub_repository)
