@@ -1,4 +1,4 @@
-﻿---
+---
 title : "Tạo CodePipeline cho Linux và Windows"
 date: 2025-08-07
 weight : 8 
@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 8. </b> "
 ---
 ## Mục tiêu
-Tự động hóa quy trình build và deploy ứng dụng Linux và Windows từ GitHub lên ECS thông qua AWS CodePipeline, sử dụng CodeBuild đã tạo trước đó.
+Tự động hóa việc build Docker image cho Linux và Windows từ GitHub và đẩy lên Amazon ECR thông qua AWS CodePipeline, sử dụng CodeBuild đã tạo trước đó.
 
 ## Chọn Template
 
