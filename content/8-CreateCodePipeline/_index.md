@@ -1,4 +1,4 @@
-﻿---
+---
 title : "Create CodePipeline for Linux and Windows"
 date: 2025-08-07
 weight : 8 
@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 8. </b> "
 ---
 ## Objective
-Automate the process of building and deploying Linux and Windows applications from GitHub to ECS via AWS CodePipeline, using a previously created CodeBuild.
+Automate building Linux and Windows Docker images from GitHub and pushing them to Amazon ECR via AWS CodePipeline, using a previously created CodeBuild.
 
 ## Select Template
 
